@@ -214,7 +214,8 @@ static const tnote tune_win[] PROGMEM = {
 // #define sound_off()	do { TCCR1A = _BV(COM1A1); /* Set clear output */ } while(0)
 void sound_off()
 {
-	// nix tun - muss erfinden
+	// stop play
+	noTone(PIN_SOUND);
 }
 
 /*
@@ -294,7 +295,11 @@ static inline void set_tone(uint16_t note, uint16_t duration)
 	tonetimer = duration;
 	if (note && note <= NTONE_PITCH)
 	{
-		// OCR1A = pgm_read_word(&tone_pitch[note-1]);
+		// to calculate the note duration, take one second divided by the note type.
+		//e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+		//int noteDuration = 1000 / noteDurations[thisNote];
+		uint16_t pitch = pgm_read_word(&tone_pitch[note-1]);
+		tone(PIN_SOUND, pitch, duration)
 		// TCCR1A = _BV(COM1A0);	/* Set toggle output */
 		// TCNT1 = 0;
 	}
@@ -705,11 +710,13 @@ void setup()
 {
 	// PORTB = PORTC = PORTD = 0xff;	// Enable all pull-ups so we don't have undef inputs hanging
 
+	// We use the internal PullUp-Resistors in the ESP - thus saving wires and resistors
+	// outside. Then buttons must only connect the GPIO pin with GND - easy!
 	pinMode(PIN_BUT_LS, INPUT_PULLUP);
 	pinMode(PIN_BUT_RS, INPUT_PULLUP);
 	pinMode(PIN_BUT_LP, INPUT_PULLUP);
 	pinMode(PIN_BUT_RP, INPUT_PULLUP);
-	digitalWrite(PIN_SOUND, 0);
+	// Not need digitalWrite(PIN_SOUND, 0);
 	pinMode(PIN_SOUND, OUTPUT);
 
 	one_d.begin(); // Setup IO
