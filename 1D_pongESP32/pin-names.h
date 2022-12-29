@@ -5,7 +5,7 @@
 #define GPIO22  22
 #define GPIO18  18  // SPI CLK
 #define GPIO19  19
-#define GPIO21  21
+#define GPIO21  21  // guter LED-out pin
 
 //ADIO
 #define GPIO25  25
