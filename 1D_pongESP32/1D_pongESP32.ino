@@ -16,9 +16,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <Adafruit_NeoPixel.h>
+#include "Adafruit_NeoPixel.h"
 #include "notes.h"
-#include "pins_arduino.h"
+#include "pin-names.h"
 
 //DIO
 #define GPIO23  23
