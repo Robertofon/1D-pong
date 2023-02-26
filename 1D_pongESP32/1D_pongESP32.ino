@@ -28,8 +28,8 @@
 #define NELEM(x) (sizeof(x) / sizeof((x)[0]))
 
 #define PIN_WSDATA GPIO21 // LED data
-#define PIN_BUT_RS GPIO35 // Right start/hit button
-#define PIN_BUT_RP GPIO33 // Right power-up button
+#define PIN_BUT_RS GPIO33 // Right start/hit button
+#define PIN_BUT_RP GPIO35 // Right power-up button
 #define PIN_BUT_LS GPIO19 // Left start/hit button
 #define PIN_BUT_LP GPIO18 // Left power-up button
 #define PIN_SOUND GPIO32  // Buzzer output (PB1/OC1A)
@@ -215,7 +215,8 @@ static const tnote tune_win[] PROGMEM = {
 void sound_off()
 {
 	// stop play
-	noTone(PIN_SOUND);
+	//noTone(PIN_SOUND);
+  ledcDetachPin(PIN_SOUND);
 }
 
 /*
@@ -299,7 +300,11 @@ static inline void set_tone(uint16_t note, uint16_t duration)
 		//e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
 		//int noteDuration = 1000 / noteDurations[thisNote];
 		uint16_t pitch = pgm_read_word(&tone_pitch[note-1]);
-		tone(PIN_SOUND, pitch, duration)
+    const int sndChannel = 0;
+    ledcSetup(sndChannel, pitch, 8);
+    ledcAttachPin(PIN_SOUND, sndChannel);
+    ledcWrite(sndChannel, 255);
+		//tone(PIN_SOUND, pitch, duration)
 		// TCCR1A = _BV(COM1A0);	/* Set toggle output */
 		// TCNT1 = 0;
 	}
