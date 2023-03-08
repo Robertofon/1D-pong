@@ -28,15 +28,15 @@
 #define NELEM(x) (sizeof(x) / sizeof((x)[0]))
 
 #define PIN_WSDATA GPIO21 // LED data
-#define PIN_BUT_RS GPIO33 // Right start/hit button
-#define PIN_BUT_RP GPIO35 // Right power-up button
-#define PIN_BUT_LS GPIO19 // Left start/hit button
-#define PIN_BUT_LP GPIO18 // Left power-up button
+#define PIN_BUT_RS GPIO19 // Right start/hit button (Y)
+#define PIN_BUT_RP GPIO18 // Right power-up button  (Y)
+#define PIN_BUT_LS GPIO33 // Left start/hit button  (X)
+#define PIN_BUT_LP GPIO23 // Left power-up button   (X)
 #define PIN_SOUND GPIO32  // Buzzer output (PB1/OC1A)
 
 #define NPIXELS 60 // Number of pixels to handle
 
-#define ZONE_SIZE 7		// Bounce-back zone size
+#define ZONE_SIZE 10		// Bounce-back zone size
 #define SHOW_LO 12		// Score dots intensity background
 #define SHOW_HI 48		// Score dots intensity foreground
 #define WIN_POINTS 10	// Points needed to win
@@ -299,11 +299,11 @@ static inline void set_tone(uint16_t note, uint16_t duration)
 		// to calculate the note duration, take one second divided by the note type.
 		//e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
 		//int noteDuration = 1000 / noteDurations[thisNote];
-		uint16_t pitch = pgm_read_word(&tone_pitch[note-1]);
-    const int sndChannel = 0;
-    ledcSetup(sndChannel, pitch, 8);
-    ledcAttachPin(PIN_SOUND, sndChannel);
-    ledcWrite(sndChannel, 255);
+//		uint16_t pitch = pgm_read_word(&tone_pitch[note-1]);
+//    const int sndChannel = 0;
+//    ledcSetup(sndChannel, pitch, 8);
+//    ledcAttachPin(PIN_SOUND, sndChannel);
+//    ledcWrite(sndChannel, 255);
 		//tone(PIN_SOUND, pitch, duration)
 		// TCCR1A = _BV(COM1A0);	/* Set toggle output */
 		// TCNT1 = 0;
@@ -354,7 +354,7 @@ static void draw_ball(int8_t dir, uint8_t pos)
 	for (uint8_t i = 0; i < 5 && pos >= 0 && pos < NPIXELS; i++)
 	{
 		one_d.setPixelColor(pos, c, c, 0);
-		c >>= 1;
+		c /= 3;
 		pos -= dir;
 	}
 }

@@ -9,3 +9,15 @@ fail to press the button in time you loose a point since the ball enters your ho
 This version supports a boost button which sacrefies one pixel of your home area in 
 favor of boosting your ball faster.
 
+We discovered that using these Pins for I/O had quite some success
+
+* GPIO19 = Right start/hit button (Y)
+* GPIO18 = Right power-up button  (Y)
+* GPIO33 = Left start/hit button  (X)
+* GPIO23 = Left power-up button   (X)
+* SOUND GPIO32  = Buzzer output (PB1/OC1A)
+
+Some pins do not allow to configure Pull up resistors or work only as output. Don't use them.
+
+We used Mouse devices which where re-soldered to use the 4 USB wires as 'short to GND' to work as controllers. 
+
