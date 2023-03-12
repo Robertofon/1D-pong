@@ -9,7 +9,7 @@ fail to press the button in time you loose a point since the ball enters your ho
 This version supports a boost button which sacrefies one pixel of your home area in 
 favor of boosting your ball faster.
 
-![Full 1D-pong device](i/leiste.jpg)
+![Full 1D-pong device](doc/leiste.jpg)
 
 We discovered that using these Pins for I/O had quite some success
 
@@ -21,7 +21,13 @@ We discovered that using these Pins for I/O had quite some success
 
 Some pins do not allow to configure Pull up resistors or work only as output. Don't use them.
 
-![The ESP32 of that shape with Pins connected](i/µc.jpg)
+![The ESP32 of that shape with Pins connected](doc/µc.jpg)
 
 We used Mouse devices which where re-soldered to use the 4 USB wires as 'short to GND' to work as controllers. 
 
+One way of wiring everything up (you can vary for geometry reasons) can be seen here.
+We respected the types of PINs and their capability. i.e. all switch pins must support
+pull up resistors (configurable property of ESP32). The buzzer sound pin must be supported by
+the PWM generator.
+
+![Layout](doc/Verdrahtung_Steckplatine.png)
