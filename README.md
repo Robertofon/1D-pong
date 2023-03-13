@@ -11,8 +11,9 @@ favor of boosting your ball faster.
 
 ![Full 1D-pong device](doc/leiste.jpg)
 
-We discovered that using these Pins for I/O had quite some success
+We discovered that using these Pins for I/O was a good choice
 
+* GPIO21 = LED data (WS2812b)
 * GPIO19 = Right start/hit button (Y)
 * GPIO18 = Right power-up button  (Y)
 * GPIO33 = Left start/hit button  (X)
@@ -24,6 +25,8 @@ Some pins do not allow to configure Pull up resistors or work only as output. Do
 ![The ESP32 of that shape with Pins connected](doc/µc.jpg)
 
 We used Mouse devices which where re-soldered to use the 4 USB wires as 'short to GND' to work as controllers. 
+That is, each button got explicitly one of the Din, Dout, Vcc wires and shorts it to the GND wire of USB.
+USB plugs where of course snipped off.
 We also did re-solder some of the existing capacitors of the USB-logic board and put them in parallel to the
 switch to suppress electric bouncing of the switch signal.
 
